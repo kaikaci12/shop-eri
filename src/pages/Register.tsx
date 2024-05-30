@@ -7,8 +7,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 export default function Register() {
-  const [visible, setVisible] = useState<boolean>(false);
-
+  const [visible1, setVisible1] = useState<boolean>(false);
+  const [visible2, setVisible2] = useState<boolean>(false);
   const schema = yup.object({
     name: yup
       .string()
@@ -68,11 +68,11 @@ export default function Register() {
           რეგისტრაცია
         </h1>
         <label className="text-[#333] text-[1rem] font-normal leading-[12px] tracking-[0.3px] flex flex-col gap-[16px]">
-          სახელი
+          სახელი, გვარი
           <input
             type="text"
             {...register("name")}
-            placeholder="შეიყვანეთ სახელი"
+            placeholder="შეიყვანეთ სახელი, გვარი"
             className={`rounded-[6px] text-[15px]  font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between ${
               errors.name ? " outline-[red]" : " border-[#E5E5E5]"
             }  bg-[#F2F2F2]`}
@@ -107,7 +107,7 @@ export default function Register() {
           <div className="flex items-center justify-end  ">
             <input
               {...register("password")}
-              type={visible ? "text" : "password"}
+              type={visible1 ? "text" : "password"}
               placeholder="შეიყვანეთ პაროლი"
               className={`rounded-[6px] text-[15px]  w-full font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between ${
                 errors.password
@@ -119,11 +119,11 @@ export default function Register() {
             <div
               onClick={(e) => {
                 e.preventDefault();
-                setVisible(!visible);
+                setVisible1(!visible1);
               }}
               className="w-[16px] absolute right-[60px] cursor-pointer"
             >
-              <img src={visible ? ShowPass : HidePass} alt="" />
+              <img src={visible1 ? ShowPass : HidePass} alt="" />
             </div>
           </div>
           {errors.password && (
@@ -137,7 +137,7 @@ export default function Register() {
           <div className="flex items-center justify-end  ">
             <input
               {...register("confirmPassword")}
-              type={visible ? "text" : "password"}
+              type={visible2 ? "text" : "password"}
               placeholder="დაადასტურეთ პაროლი"
               className={`rounded-[6px] text-[15px]  w-full font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between ${
                 errors.confirmPassword
@@ -149,11 +149,11 @@ export default function Register() {
             <div
               onClick={(e) => {
                 e.preventDefault();
-                setVisible(!visible);
+                setVisible2(!visible2);
               }}
               className="w-[16px] absolute right-[60px] cursor-pointer"
             >
-              <img src={visible ? ShowPass : HidePass} alt="" />
+              <img src={visible2 ? ShowPass : HidePass} alt="" />
             </div>
           </div>
           {errors.confirmPassword && (
