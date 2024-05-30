@@ -6,18 +6,31 @@ import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 export default function Register() {
+  const [visible, setVisible] = useState<boolean>(false);
   type Inputs = {
     name: string;
     email: string;
     password: string;
     phoneNumber: string;
   };
-  const {};
-  const [visible, setVisible] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="lg:flex lg:flex-row ">
       <img src={LoginImg} alt="image" className="lg:w-[50%]" />
-      <form className="flex flex-col gap-[20px] mt-[24px] bf-white p-[48px] lg:w-[50%]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-[20px] mt-[24px] bf-white p-[48px] lg:w-[50%]"
+      >
         <h1 className="text-[#1A1A1A] mb-[20px] text-center text-[30px] font-semibold leading-[28px]">
           რეგისტრაცია
         </h1>
@@ -25,6 +38,7 @@ export default function Register() {
           სახელი
           <input
             type="text"
+            {...register("name")}
             placeholder="შეიყვანეთ სახელი"
             className="rounded-[6px] text-[15px] font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
           />
@@ -32,6 +46,7 @@ export default function Register() {
         <label className="text-[#333] text-[1rem] font-normal leading-[12px] tracking-[0.3px] flex flex-col gap-[16px]">
           ელფოსტა
           <input
+            {...register("email")}
             type="text"
             placeholder="შეიყვანეთ ეფლოსტა"
             className="rounded-[6px] text-[15px] font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
@@ -40,6 +55,7 @@ export default function Register() {
         <label className="text-[#333] text-[1rem] font-normal leading-[12px] tracking-[0.3px] flex flex-col gap-[16px]">
           ტელეფონის ნომერი
           <input
+            {...register("phoneNumber")}
             type="number"
             placeholder="შეიყვანეთ ტელეფონის ნომერი"
             className="rounded-[6px] text-[15px] font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
@@ -49,6 +65,7 @@ export default function Register() {
           პაროლი
           <div className="flex items-center justify-end  ">
             <input
+              {...register("password")}
               type={visible ? "text" : "password"}
               placeholder="შეიყვანეთ ტელეფონის ნომერი"
               className="rounded-[6px] w-full text-[15px]  font-normal p-[16px] leading-[20px] border-[0.5px]   flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
@@ -65,6 +82,7 @@ export default function Register() {
           დაადასტურე პაროლი
           <input
             type="text"
+            {...register("password")}
             placeholder="შეიყვანეთ ტელეფონის ნომერი"
             className="rounded-[6px] text-[15px] font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
           />
