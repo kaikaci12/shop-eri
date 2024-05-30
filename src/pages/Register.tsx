@@ -27,7 +27,14 @@ export default function Register() {
       .string()
       .required("ველის შევსება აუცილებელია!")
       .min(6, "პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს"),
-    confirmPassword: yup.string().required("ველის შევსება აუცილებელია!"),
+    confirmPassword: yup
+      .string()
+      .required("ველის შევსება აუცილებელია!")
+      .test(
+        "check correct repeat password",
+        "სწორად გაიმეორე პაროლი",
+        (value) => value === password
+      ),
   });
   type Inputs = {
     name: string;
@@ -44,6 +51,7 @@ export default function Register() {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
+  const password: string = watch("password");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
