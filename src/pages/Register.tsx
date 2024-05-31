@@ -1,4 +1,5 @@
 import LoginImg from "/assets/login-img.png";
+import CloseIcon from "/assets/close.png";
 import ShowPass from "/assets/show.png";
 import HidePass from "/assets/hide.png";
 import { useState } from "react";
@@ -6,7 +7,11 @@ import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-export default function Register() {
+type TRegWindow = {
+  regWindow: boolean;
+  handleRegWindow: Function;
+};
+export default function Register({ handleRegWindow, regWindow }: TRegWindow) {
   const [visible1, setVisible1] = useState<boolean>(false);
   const [visible2, setVisible2] = useState<boolean>(false);
   const schema = yup.object({
@@ -58,12 +63,22 @@ export default function Register() {
   };
   console.log(errors);
   return (
-    <div className="lg:flex lg:flex-row ">
-      <img src={LoginImg} alt="image" className="lg:w-[50%]" />
+    <div
+      className=" flex flex-col  justify-center  lg:items-center
+    "
+    >
+      {/* <img src={LoginImg} alt="image" className="lg:w-[50%] " /> */}
+
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[20px] mt-[24px] bf-white p-[48px] lg:w-[50%]"
+        className="flex flex-col gap-[15px] mt-[24px] bf-white p-[48px]   lg:min-w-[800px]"
       >
+        <div
+          onClick={() => handleRegWindow(!regWindow)}
+          className=" w-full flex justify-end  cursor-pointer"
+        >
+          <img src={CloseIcon} alt="" className="w-[20px] " />
+        </div>
         <h1 className="text-[#1A1A1A] mb-[20px] text-center text-[30px] font-semibold leading-[28px]">
           რეგისტრაცია
         </h1>
@@ -121,9 +136,13 @@ export default function Register() {
                 e.preventDefault();
                 setVisible1(!visible1);
               }}
-              className="w-[16px] absolute right-[60px] cursor-pointer"
+              className="absolute  lg:w-[700px] px-[16px] flex  justify-end   cursor-pointer"
             >
-              <img src={visible1 ? ShowPass : HidePass} alt="" />
+              <img
+                src={visible1 ? ShowPass : HidePass}
+                alt=""
+                className="w-[16px]"
+              />
             </div>
           </div>
           {errors.password && (
@@ -134,12 +153,12 @@ export default function Register() {
         </label>
         <label className="text-[#333] text-[1rem] font-normal leading-[12px] tracking-[0.3px] flex flex-col gap-[16px]">
           დაადასტურე პაროლი
-          <div className="flex items-center justify-end  ">
+          <div className="flex items-center justify-end  relative">
             <input
               {...register("confirmPassword")}
               type={visible2 ? "text" : "password"}
               placeholder="დაადასტურეთ პაროლი"
-              className={`rounded-[6px] text-[15px]  w-full font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between ${
+              className={`rounded-[6px] text-[15px]   w-full font-normal leading-[20px] border-[0.5px]  p-[16px] flex items-center opacity-75 justify-between ${
                 errors.confirmPassword
                   ? " outline-[red] border-[red]"
                   : " border-[#E5E5E5]"
@@ -151,9 +170,13 @@ export default function Register() {
                 e.preventDefault();
                 setVisible2(!visible2);
               }}
-              className="w-[16px] absolute right-[60px] cursor-pointer"
+              className="absolute  lg:w-[700px] px-[16px] flex  justify-end   cursor-pointer"
             >
-              <img src={visible2 ? ShowPass : HidePass} alt="" />
+              <img
+                src={visible2 ? ShowPass : HidePass}
+                alt=""
+                className="w-[16px]"
+              />
             </div>
           </div>
           {errors.confirmPassword && (

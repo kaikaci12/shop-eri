@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LoginIcon from "/assets/login-icon.png";
 const navLinks = [
   {
     name: "Home",
@@ -8,16 +9,16 @@ const navLinks = [
     name: "ჩვენს შესახებ",
     path: "/about",
   },
-  {
-    name: "შესვლა",
-    path: "/login",
-  },
 ];
-export default function Header() {
+type TRegWindow = {
+  regWindow: boolean;
+  handleRegWindow: Function;
+};
+export default function Header({ regWindow, handleRegWindow }: TRegWindow) {
   return (
     <header className="bg-blue-300  h-[100px] flex items-center ">
       <nav className="">
-        <ul className="flex gap-[20px]">
+        <ul className="flex gap-[20px] h-full items-center">
           {navLinks.map((link, index) => {
             return (
               <Link key={index} to={link.path}>
@@ -27,6 +28,13 @@ export default function Header() {
               </Link>
             );
           })}
+          <div
+            onClick={() => handleRegWindow()}
+            className="flex  cursor-pointer text-white font-bold h-full items-center "
+          >
+            შესვლა
+            <img src={LoginIcon} alt="" className="w-[40px] " />
+          </div>
         </ul>
       </nav>
     </header>

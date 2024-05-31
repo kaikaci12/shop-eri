@@ -1,7 +1,8 @@
 import LoginImg from "/assets/login-img.png";
 import ShowPass from "/assets/show.png";
 import HidePass from "/assets/hide.png";
-import { useState } from "react";
+import { InputMask } from "@react-input/mask";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,6 +31,8 @@ export default function Login() {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
+  const password = watch("password");
+  const phoneNumber = watch("phoneNumber");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -71,7 +74,10 @@ export default function Login() {
               className="rounded-[6px] w-full text-[15px]   font-normal p-[16px] leading-[20px] border-[0.5px]   flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
             />
             <div
-              onClick={() => setVisible(!visible)}
+              onClick={(e) => {
+                setVisible(!visible);
+                e.preventDefault();
+              }}
               className="w-[16px] absolute right-[60px] cursor-pointer"
             >
               <img src={visible ? ShowPass : HidePass} alt="" />
@@ -86,11 +92,11 @@ export default function Login() {
         <button className="mt-[25px] text-[#FFF] text-center text-[15px] font-bold leading-[20px] tracking-[0.3px] flex px-[24px] py-[10px] justify-center items-center self-stretch rounded-[6px] bg-[var(--system-blue-007-aff,_#007AFF)]">
           ავტორიზაცია
         </button>
+        <h2 className="text-center">არ გაქვს ანგარიში?</h2>
+        <Link to={"/register"} className="text-center font-bold text-blue-400">
+          <h2>რეგისტრაცია</h2>
+        </Link>
       </form>
-      <h2 className="text-center">არ გაქვს ანგარიში?</h2>
-      <Link to={"/register"} className="text-center font-bold text-blue-400">
-        <h2>რეგისტრაცია</h2>
-      </Link>
     </div>
   );
 }
