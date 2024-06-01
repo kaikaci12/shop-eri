@@ -10,8 +10,15 @@ import * as yup from "yup";
 type TRegWindow = {
   regWindow: boolean;
   handleRegWindow: Function;
+  setLoginWindow: React.Dispatch<React.SetStateAction<boolean>>;
+  loginWindow: boolean;
 };
-export default function Register({ handleRegWindow, regWindow }: TRegWindow) {
+export default function Register({
+  handleRegWindow,
+  regWindow,
+  setLoginWindow,
+  loginWindow,
+}: TRegWindow) {
   const [visible1, setVisible1] = useState<boolean>(false);
   const [visible2, setVisible2] = useState<boolean>(false);
   const schema = yup.object({
@@ -190,9 +197,15 @@ export default function Register({ handleRegWindow, regWindow }: TRegWindow) {
         </button>
         <div className="w-full h-[2px] bg-[grey]"></div>
         <h2 className="text-center">გაქვს უკვე ანგარიში?</h2>
-        <Link to={"/login"} className="text-center font-bold text-blue-400">
+        <button
+          onClick={() => {
+            handleRegWindow();
+            setLoginWindow(!loginWindow);
+          }}
+          className="text-center font-bold text-blue-400"
+        >
           <h2>ავტორიზაცია</h2>
-        </Link>
+        </button>
       </form>
     </div>
   );

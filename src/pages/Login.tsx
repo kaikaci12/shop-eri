@@ -4,10 +4,18 @@ import HidePass from "/assets/hide.png";
 import { InputMask } from "@react-input/mask";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CloseIcon from "/assets/close.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-export default function Login() {
+interface IProps {
+  setLoginWindow: React.Dispatch<React.SetStateAction<boolean>>;
+  loginWindow: boolean;
+  regWindow: boolean;
+  handleRegWindow: Function;
+}
+
+export default function Login({ setLoginWindow, loginWindow }: IProps) {
   const [visible, setVisible] = useState(false);
   const schema = yup.object({
     phoneNumber: yup
@@ -39,13 +47,20 @@ export default function Login() {
   };
   console.log(errors);
   return (
-    <div className="lg:flex lg:flex-row">
-      <img src={LoginImg} alt="image" className="lg:w-[50%]" />
-
+    <div
+      className="h-[100vh] absolute w-full   flex flex-col items-center   px-[30px]    bg-opacity-40 bg-black
+    "
+    >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[20px] mt-[24px] bf-white p-[48px] lg:w-[50%]"
+        className="flex flex-col gap-[20px] sm:mt-[30px]  bg-white w-full p-[48px] lg:w-[50%]"
       >
+        <div
+          onClick={() => {}}
+          className=" w-full flex justify-end  cursor-pointer"
+        >
+          <img src={CloseIcon} alt="" className="w-[20px] " />
+        </div>
         <h1 className="text-[#1A1A1A] mb-[20px] text-center text-[30px] font-semibold leading-[28px]">
           ავტორიზაცია
         </h1>
@@ -73,14 +88,16 @@ export default function Login() {
               placeholder="შეიყვანეთ ტელეფონის ნომერი"
               className="rounded-[6px] w-full text-[15px]   font-normal p-[16px] leading-[20px] border-[0.5px]   flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
             />
-            <div
-              onClick={(e) => {
-                setVisible(!visible);
-                e.preventDefault();
-              }}
-              className="w-[16px] absolute right-[60px] cursor-pointer"
-            >
-              <img src={visible ? ShowPass : HidePass} alt="" />
+            <div className="absolute  lg:w-[700px] px-[16px] flex  justify-end   ">
+              <img
+                onClick={(e) => {
+                  e.preventDefault();
+                  setVisible(!visible);
+                }}
+                src={visible ? ShowPass : HidePass}
+                alt=""
+                className="w-[16px]"
+              />
             </div>
           </div>
           {errors.password && (
@@ -93,9 +110,9 @@ export default function Login() {
           ავტორიზაცია
         </button>
         <h2 className="text-center">არ გაქვს ანგარიში?</h2>
-        <Link to={"/register"} className="text-center font-bold text-blue-400">
+        <button onClick={} className="text-center font-bold text-blue-400">
           <h2>რეგისტრაცია</h2>
-        </Link>
+        </button>
       </form>
     </div>
   );

@@ -8,9 +8,11 @@ import { createContext, useEffect } from "react";
 import { useState } from "react";
 import data from "./data.json";
 import { IProductData } from "./types.d";
+import { useContext } from "react";
 
 function App() {
   const [regWindow, setRegWindow] = useState<boolean>(false);
+  const [loginWindow, setLoginWindow] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResults, setSearchResults] = useState<IProductData[]>([]);
 
@@ -28,7 +30,13 @@ function App() {
       setRegWindow(false);
     }
   }
-  console.log(searchResults);
+  function handleLoginWindow() {
+    if (!loginWindow) {
+      setLoginWindow(true);
+    } else {
+      setLoginWindow(false);
+    }
+  }
   return (
     <div>
       <Header
@@ -37,11 +45,17 @@ function App() {
         searchValue={searchValue}
       />
       {regWindow && (
-        <Register handleRegWindow={handleRegWindow} regWindow={regWindow} />
+        <Register
+          handleRegWindow={handleRegWindow}
+          regWindow={regWindow}
+          setLoginWindow={setLoginWindow}
+          loginWindow={loginWindow}
+        />
       )}
-      <Routes>
-        <Route path="/" element={<HomePage searchResults={searchResults} />} />
-      </Routes>
+      {loginWindow && (
+        <Login setLoginWindow={setLoginWindow} loginWindow={loginWindow} />
+      )}
+      <Routes></Routes>
     </div>
   );
 }
