@@ -21,9 +21,7 @@ function App() {
     <div>
       <Header handleRegWindow={handleRegWindow} regWindow={regWindow} />
       {regWindow && (
-        <div className="w-full h-[100vh] bg-opacity-[black]">
-          <Register handleRegWindow={handleRegWindow} regWindow={regWindow} />
-        </div>
+        <Register handleRegWindow={handleRegWindow} regWindow={regWindow} />
       )}
       <Routes>
         <Route path="/" element={<HomePage />} />

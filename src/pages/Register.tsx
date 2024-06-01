@@ -64,14 +64,14 @@ export default function Register({ handleRegWindow, regWindow }: TRegWindow) {
   console.log(errors);
   return (
     <div
-      className=" flex flex-col  justify-center  lg:items-center
+      className=" flex flex-col  justify-center  sm:items-center bg-opacity-40 bg-black
     "
     >
       {/* <img src={LoginImg} alt="image" className="lg:w-[50%] " /> */}
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[15px] mt-[24px] bf-white p-[48px]   lg:min-w-[800px]"
+        className="flex flex-col gap-[15px]   bg-white p-[30px] sm:w-[650px] sm:mt-[80px]   lg:min-w-[800px]"
       >
         <div
           onClick={() => handleRegWindow(!regWindow)}
@@ -188,6 +188,7 @@ export default function Register({ handleRegWindow, regWindow }: TRegWindow) {
         <button className="mt-[25px] text-[#FFF] text-center text-[15px] font-bold leading-[20px] tracking-[0.3px] flex px-[24px] py-[10px] justify-center items-center self-stretch rounded-[6px] bg-[var(--system-blue-007-aff,_#007AFF)]">
           რეგისტრაცია
         </button>
+        <div className="w-full h-[2px] bg-[grey]"></div>
         <h2 className="text-center">გაქვს უკვე ანგარიში?</h2>
         <Link to={"/login"} className="text-center font-bold text-blue-400">
           <h2>ავტორიზაცია</h2>
