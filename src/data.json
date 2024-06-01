@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "name": "წყალგამძლე ტელეფონის ჩანთა",
+    "description": "გამოიყენება ტელეფონის წყალქვეშ გამოსაყენებლად. გადაიღეთ ფოტოები და ვიდეოები წყალქვეშ და დააგროვეთ საუკეთესო მოგონებები. ადვილია გამოსაყენებლად, მოთავსების შემთხვევაში სენსორი მუშაობს 100% ით გამართულად. არ არსებობს წყლის შესვლის არანაირი რისკი",
+    "price": 20,
+    "image": "/assets/waterproof-purse.png"
+  },
+  {
+    "id": 2,
+
+    "name": "XX59 Headphones",
+    "image": "",
+    "price": 899,
+    "description": "Enjoy your audio almost anywhere and customize it to your specific tastes with the XX59 headphones. The stylish yet durable versatile wireless headset is a brilliant companion at home or on the move."
+  },
+  {
+    "id": 3,
+    "image": "",
+    "name": "XX99 Mark I Headphones",
+
+    "price": 1750,
+    "description": "As the gold standard for headphones, the classic XX99 Mark I offers detailed and accurate audio reproduction for audiophiles, mixing engineers, and music aficionados alike in studios and on the go."
+  },
+  {
+    "id": 4,
+    "image": "",
+    "name": "XX99 Mark II Headphones",
+
+    "price": 2999,
+    "description": "The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound."
+  },
+  {
+    "id": 5,
+    "image": "",
+    "name": "ZX7 Speaker",
+
+    "price": 3500,
+    "description": "Stream high quality sound wirelessly with minimal to no loss. The ZX7 speaker uses high-end audiophile components that represents the top of the line powered speakers for home or studio use."
+  }
+]

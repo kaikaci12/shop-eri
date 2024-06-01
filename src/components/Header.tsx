@@ -4,6 +4,8 @@ import Menu from "/assets/menu.png";
 import { useEffect, useState } from "react";
 import SearchIcon from "/assets/search.png";
 import OrderIcon from "/assets/order-icon.png";
+import Orders from "./Orders";
+import { string } from "yup";
 const navLinks = [
   {
     name: "მაღაზია",
@@ -19,13 +21,22 @@ const navLinks = [
   },
 ];
 
-type TRegWindow = {
+type Props = {
   handleRegWindow: Function;
+  setSearchValue: Function;
+  searchValue: string;
 };
 
-export default function Header({ handleRegWindow }: TRegWindow) {
+export default function Header({
+  handleRegWindow,
+  setSearchValue,
+  searchValue,
+}: Props) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [menuActive, setMenuActive] = useState(false);
+  const [orderActive, setOrderActive] = useState(false);
+
+  const [orders, SetOrders] = useState([]);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -74,7 +85,10 @@ export default function Header({ handleRegWindow }: TRegWindow) {
       </div>
 
       <div className="absolute h-[100px] sm:h-[150px] right-[20px] flex-col  flex gap-[1px]  items-center">
-        <div className="text-[1rem]   items-center justify-center text-white font-bold flex gap-[10px]">
+        <div
+          onClick={() => setOrderActive(!orderActive)}
+          className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex gap-[10px]"
+        >
           <span>ჩემი შეკვეთები</span>
           <img src={OrderIcon} alt="" className=" w-[40px] mt-[10px]" />
         </div>
@@ -110,6 +124,8 @@ export default function Header({ handleRegWindow }: TRegWindow) {
           </nav>
         </div>
       )}
+      {orderActive && <Orders />}
+
       {windowWidth >= 640 && (
         <div className="w-full">
           <label htmlFor="search" className="flex  gap-[10px] ">
@@ -122,6 +138,7 @@ export default function Header({ handleRegWindow }: TRegWindow) {
               />
             </div>
             <input
+              onChange={(e) => setSearchValue(e.target.value)}
               type="search"
               className="rounded-[6px] h-[60px] px-[16px] w-[50%]"
               placeholder="პროდუქტების ძებნა"
