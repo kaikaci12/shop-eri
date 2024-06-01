@@ -1,8 +1,21 @@
+import { useEffect, useState } from "react";
 import data from "../data.json";
-export default function HomePage() {
+import { IProductData } from "../types.d";
+interface Props {
+  searchResults: IProductData[];
+}
+export default function HomePage({ searchResults }: Props) {
+  const [productData, setProductData] = useState<IProductData[]>(data);
+  useEffect(() => {
+    if (searchResults.length > 0) {
+      setProductData(searchResults);
+    } else {
+      setProductData([]);
+    }
+  }, [searchResults]);
   return (
     <div className="bg-white flex flex-wrap gap-[30px] p-[32px]">
-      {data.map((product) => {
+      {productData.map((product) => {
         return (
           <div key={product.id} className="w-[300px]">
             <img src={product?.image} alt="product-image" className="w-full" />
@@ -16,6 +29,9 @@ export default function HomePage() {
           </div>
         );
       })}
+      {searchResults.length === 0 && (
+        <div className="text-[3rem] font-bold">პროდუქტი ვერ მოიძებნა</div>
+      )}
     </div>
   );
 }

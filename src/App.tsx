@@ -7,23 +7,16 @@ import Login from "./pages/Login";
 import { createContext, useEffect } from "react";
 import { useState } from "react";
 import data from "./data.json";
-
-type Product = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-};
+import { IProductData } from "./types.d";
 
 function App() {
   const [regWindow, setRegWindow] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [searchResults, setSearchResults] = useState<IProductData[]>([]);
 
   useEffect(() => {
     const results = data.filter((value) =>
-      value.name.toLowerCase().includes(searchValue)
+      value.name.toLowerCase().includes(searchValue.toLowerCase().trim())
     );
     setSearchResults(results);
   }, [searchValue]);
@@ -47,7 +40,7 @@ function App() {
         <Register handleRegWindow={handleRegWindow} regWindow={regWindow} />
       )}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage searchResults={searchResults} />} />
       </Routes>
     </div>
   );
