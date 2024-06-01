@@ -64,14 +64,14 @@ export default function Register({ handleRegWindow, regWindow }: TRegWindow) {
   console.log(errors);
   return (
     <div
-      className=" flex flex-col  justify-center  sm:items-center bg-opacity-40 bg-black
+      className="h-[100vh] absolute w-full   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
     "
     >
       {/* <img src={LoginImg} alt="image" className="lg:w-[50%] " /> */}
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[15px]   bg-white p-[30px] sm:w-[650px] sm:mt-[80px]   lg:min-w-[800px]"
+        className="flex flex-col  gap-[15px] z-[999]   mt-[50px]   bg-white p-[30px] sm:w-[650px] sm:mt-[80px]   lg:min-w-[800px]"
       >
         <div
           onClick={() => handleRegWindow(!regWindow)}
