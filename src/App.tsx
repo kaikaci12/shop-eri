@@ -4,11 +4,13 @@ import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import { createContext, useEffect } from "react";
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import Product from "./pages/Product";
 import data from "./data.json";
 import { IProductData } from "./types.d";
-import { useContext } from "react";
+import { boolean } from "yup";
+
+export const productContext = createContext(data);
 
 function App() {
   const [regWindow, setRegWindow] = useState<boolean>(false);
@@ -24,38 +26,40 @@ function App() {
   }, [searchValue]);
 
   function handleRegWindow() {
-    if (!regWindow) {
-      setRegWindow(true);
-    } else {
-      setRegWindow(false);
-    }
+    setRegWindow((prev) => !prev);
   }
   function handleLoginWindow() {
-    if (!loginWindow) {
-      setLoginWindow(true);
-    } else {
-      setLoginWindow(false);
-    }
+    setLoginWindow((prev) => !prev);
   }
+
   return (
     <div>
       <Header
-        handleRegWindow={handleRegWindow}
+        handleRegWindow={handleLoginWindow}
         setSearchValue={setSearchValue}
         searchValue={searchValue}
+        handleLoginWindow={handleLoginWindow}
       />
+
       {regWindow && (
         <Register
           handleRegWindow={handleRegWindow}
-          regWindow={regWindow}
-          setLoginWindow={setLoginWindow}
-          loginWindow={loginWindow}
+          handleLoginWindow={handleLoginWindow}
         />
       )}
+
       {loginWindow && (
-        <Login setLoginWindow={setLoginWindow} loginWindow={loginWindow} />
+        <Login
+          handleRegWindow={handleLoginWindow}
+          handleLoginWindow={handleLoginWindow}
+        />
       )}
-      <Routes></Routes>
+      <productContext.Provider value={searchResults}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/product/:id" element={<Product />} />
+        </Routes>
+      </productContext.Provider>
     </div>
   );
 }

@@ -8,16 +8,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 type TRegWindow = {
-  regWindow: boolean;
+  handleLoginWindow: Function;
   handleRegWindow: Function;
-  setLoginWindow: React.Dispatch<React.SetStateAction<boolean>>;
-  loginWindow: boolean;
 };
 export default function Register({
   handleRegWindow,
-  regWindow,
-  setLoginWindow,
-  loginWindow,
+  handleLoginWindow,
 }: TRegWindow) {
   const [visible1, setVisible1] = useState<boolean>(false);
   const [visible2, setVisible2] = useState<boolean>(false);
@@ -71,7 +67,7 @@ export default function Register({
   console.log(errors);
   return (
     <div
-      className="h-[100vh] absolute w-full   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
+      className=" h-full  w-full   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
     "
     >
       {/* <img src={LoginImg} alt="image" className="lg:w-[50%] " /> */}
@@ -81,7 +77,7 @@ export default function Register({
         className="flex flex-col  gap-[15px] z-[999]   mt-[50px]   bg-white p-[30px] sm:w-[650px] sm:mt-[80px]   lg:min-w-[800px]"
       >
         <div
-          onClick={() => handleRegWindow(!regWindow)}
+          onClick={() => handleRegWindow()}
           className=" w-full flex justify-end  cursor-pointer"
         >
           <img src={CloseIcon} alt="" className="w-[20px] " />
@@ -200,7 +196,7 @@ export default function Register({
         <button
           onClick={() => {
             handleRegWindow();
-            setLoginWindow(!loginWindow);
+            handleLoginWindow();
           }}
           className="text-center font-bold text-blue-400"
         >

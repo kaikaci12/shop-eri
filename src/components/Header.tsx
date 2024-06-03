@@ -25,12 +25,13 @@ type Props = {
   handleRegWindow: Function;
   setSearchValue: Function;
   searchValue: string;
+  handleLoginWindow: Function;
 };
 
 export default function Header({
-  handleRegWindow,
   setSearchValue,
   searchValue,
+  handleLoginWindow,
 }: Props) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [menuActive, setMenuActive] = useState(false);
@@ -48,7 +49,7 @@ export default function Header({
   }, []);
 
   return (
-    <header className="bg-gray-400 sm:h-[150px] h-[100px] flex flex-col gap-[32px]  items-center px-[16px] pb-[16px]">
+    <header className="bg-gray-400 sm:h-[150px]   h-[100px] w-full  flex flex-col gap-[32px]  items-center px-[16px] pb-[16px]">
       <div className="h-full flex items-center w-full ">
         {windowWidth < 640 ? (
           <div
@@ -93,7 +94,7 @@ export default function Header({
           <img src={OrderIcon} alt="" className=" w-[40px] mt-[10px]" />
         </div>
         <div
-          onClick={() => handleRegWindow()}
+          onClick={() => handleLoginWindow()}
           className="flex    cursor-pointer text-white font-bold h-full items-center "
         >
           შესვლა

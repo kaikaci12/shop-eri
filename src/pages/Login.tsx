@@ -1,7 +1,7 @@
 import LoginImg from "/assets/login-img.png";
 import ShowPass from "/assets/show.png";
 import HidePass from "/assets/hide.png";
-import { InputMask } from "@react-input/mask";
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CloseIcon from "/assets/close.png";
@@ -9,14 +9,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 interface IProps {
-  setLoginWindow: React.Dispatch<React.SetStateAction<boolean>>;
-  loginWindow: boolean;
-  regWindow: boolean;
+  handleLoginWindow: Function;
+
   handleRegWindow: Function;
 }
 
-export default function Login({ setLoginWindow, loginWindow }: IProps) {
+export default function Login({ handleLoginWindow, handleRegWindow }: IProps) {
   const [visible, setVisible] = useState(false);
+
   const schema = yup.object({
     phoneNumber: yup
       .string()
@@ -46,9 +46,10 @@ export default function Login({ setLoginWindow, loginWindow }: IProps) {
     console.log(data);
   };
   console.log(errors);
+
   return (
     <div
-      className="h-[100vh] absolute w-full   flex flex-col items-center   px-[30px]    bg-opacity-40 bg-black
+      className="h-[100vh] absolute   w-full   flex flex-col items-center   px-[30px]    bg-opacity-40 bg-black
     "
     >
       <form
@@ -56,7 +57,7 @@ export default function Login({ setLoginWindow, loginWindow }: IProps) {
         className="flex flex-col gap-[20px] sm:mt-[30px]  bg-white w-full p-[48px] lg:w-[50%]"
       >
         <div
-          onClick={() => {}}
+          onClick={() => handleLoginWindow()}
           className=" w-full flex justify-end  cursor-pointer"
         >
           <img src={CloseIcon} alt="" className="w-[20px] " />
@@ -85,7 +86,7 @@ export default function Login({ setLoginWindow, loginWindow }: IProps) {
             <input
               {...register("password")}
               type={visible ? "text" : "password"}
-              placeholder="შეიყვანეთ ტელეფონის ნომერი"
+              placeholder="შეიყვანეთ პაროლი"
               className="rounded-[6px] w-full text-[15px]   font-normal p-[16px] leading-[20px] border-[0.5px]   flex items-center opacity-75 justify-between border-[#E5E5E5] bg-[#F2F2F2]"
             />
             <div className="absolute  lg:w-[700px] px-[16px] flex  justify-end   ">
@@ -110,10 +111,18 @@ export default function Login({ setLoginWindow, loginWindow }: IProps) {
           ავტორიზაცია
         </button>
         <h2 className="text-center">არ გაქვს ანგარიში?</h2>
-        <button onClick={} className="text-center font-bold text-blue-400">
-          <h2>რეგისტრაცია</h2>
-        </button>
       </form>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+
+          handleLoginWindow();
+          handleRegWindow();
+        }}
+        className="text-center font-bold text-blue-400"
+      >
+        <h2 className="w-full">რეგისტრაცია</h2>
+      </button>
     </div>
   );
 }
