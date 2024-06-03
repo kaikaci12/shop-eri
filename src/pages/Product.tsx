@@ -33,7 +33,7 @@ export default function Product() {
         </div>
 
         <button className="bg-orange-400 w-[50%] h-[50px] px-[16px] flex items-center text-white font-bold text-xl">
-          შეკვეთა
+          შეკვეთებში დამატება
         </button>
       </div>
     </div>
