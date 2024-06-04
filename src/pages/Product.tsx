@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import data from "../data.json";
 import { Link } from "react-router-dom";
-export default function Product() {
+type TProps = {
+  handleAddProduct: Function;
+};
+export default function Product({ handleAddProduct }: TProps) {
   const productParams = useParams();
   const productData = data.find(
     (product) => product.id.toString() === productParams.id
   );
+
   return (
     <div>
       <Link to={`/`}>
@@ -32,7 +36,10 @@ export default function Product() {
           <p>{productData?.description}</p>
         </div>
 
-        <button className="bg-orange-400 w-[50%] h-[50px] px-[16px] flex items-center text-white font-bold text-xl">
+        <button
+          onClick={() => handleAddProduct(productData)}
+          className="bg-orange-400 w-[50%] h-[50px] px-[16px] flex items-center text-white font-bold text-xl"
+        >
           შეკვეთებში დამატება
         </button>
       </div>

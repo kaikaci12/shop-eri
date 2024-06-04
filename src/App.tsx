@@ -3,20 +3,30 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import Register from "./pages/Register";
+import Orders from "./components/Orders";
 import Login from "./pages/Login";
 import { createContext, useEffect, useState } from "react";
 import Product from "./pages/Product";
 import data from "./data.json";
-import { IProductData, IOrders } from "./types.d";
-import { boolean } from "yup";
+import { IProductData } from "./types.d";
 
-export const productContext = createContext(data);
+export interface IOrders {
+  description: string;
+  id: number;
+  image: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export const orderContext = createContext([]);
 
 function App() {
   const [regWindow, setRegWindow] = useState<boolean>(false);
   const [loginWindow, setLoginWindow] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResults, setSearchResults] = useState<IProductData[]>([]);
+  const [orderActive, setOrderActive] = useState(false);
   const [orders, setOrders] = useState<IOrders[]>([]);
 
   useEffect(() => {
@@ -54,8 +64,8 @@ function App() {
   //     );
   //   }
   // }
-  function handleAddProduct(product: IOrders[]) {
-    const productExist = orders.find((item) => item.id === product.id);
+  function handleAddProduct(product: IProductData) {
+    const productExist = orders.find((item) => item?.id === product?.id);
 
     if (productExist) {
       setOrders(
@@ -72,13 +82,17 @@ function App() {
       setOrders([...orders, { ...product, quantity: 1 }]);
     }
   }
+  function handleOrderWindow() {
+    setOrderActive(!orderActive);
+  }
 
+  console.log(orders);
   return (
     <div>
       <Header
-        handleRegWindow={handleLoginWindow}
         setSearchValue={setSearchValue}
         searchValue={searchValue}
+        handleOrderActive={handleOrderWindow}
         handleLoginWindow={handleLoginWindow}
       />
 
@@ -95,12 +109,16 @@ function App() {
           handleLoginWindow={handleLoginWindow}
         />
       )}
-      <productContext.Provider value={searchResults}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/product/:id" element={<Product />} />
-        </Routes>
-      </productContext.Provider>
+
+      <Routes>
+        <Route path="/" element={<HomePage searchResults={searchResults} />} />
+        <Route
+          path="/product/:id"
+          element={<Product handleAddProduct={handleAddProduct} />}
+        />
+
+        <Route path="/orders" element={<Orders orders={orders} />} />
+      </Routes>
     </div>
   );
 }

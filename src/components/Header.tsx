@@ -22,22 +22,19 @@ const navLinks = [
 ];
 
 type Props = {
-  handleRegWindow: Function;
-  setSearchValue: Function;
-  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  handleOrderWindow: Function;
   handleLoginWindow: Function;
 };
 
 export default function Header({
   setSearchValue,
-  searchValue,
+  handleOrderWindow,
   handleLoginWindow,
 }: Props) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [menuActive, setMenuActive] = useState(false);
-  const [orderActive, setOrderActive] = useState(false);
 
-  const [orders, SetOrders] = useState([]);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -86,13 +83,13 @@ export default function Header({
       </div>
 
       <div className="absolute h-[100px] sm:h-[150px] right-[20px] flex-col  flex gap-[1px]  items-center">
-        <div
-          onClick={() => setOrderActive(!orderActive)}
-          className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex gap-[10px]"
-        >
-          <span>ჩემი შეკვეთები</span>
-          <img src={OrderIcon} alt="" className=" w-[40px] mt-[10px]" />
-        </div>
+        <Link to="/orders">
+          <div className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex gap-[10px]">
+            <span>ჩემი შეკვეთები</span>
+            <img src={OrderIcon} alt="" className=" w-[40px] mt-[10px]" />
+          </div>
+        </Link>
+
         <div
           onClick={() => handleLoginWindow()}
           className="flex    cursor-pointer text-white font-bold h-full items-center "
@@ -125,7 +122,6 @@ export default function Header({
           </nav>
         </div>
       )}
-      {orderActive && <Orders />}
 
       {windowWidth >= 640 && (
         <div className="w-full">

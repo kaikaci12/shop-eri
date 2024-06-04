@@ -2,11 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import data from "../data.json";
 import { IProductData } from "../types.d";
 import { Link } from "react-router-dom";
-import { productContext } from "../App";
 
-export default function HomePage() {
-  const searchResults = useContext(productContext);
-
+interface IProps {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+}
+export default function HomePage({ searchResults }: IProps) {
   const [productData, setProductData] = useState<IProductData[]>(data);
   useEffect(() => {
     if (searchResults.length > 0) {
@@ -19,11 +23,8 @@ export default function HomePage() {
     <div className="bg-white flex flex-wrap gap-[30px] p-[32px]">
       {productData.map((product) => {
         return (
-          <Link to={`/product/${product.id}`}>
-            <div
-              key={product.id}
-              className="w-[300px] flex flex-col gap-[16px]"
-            >
+          <Link key={product.id} to={`/product/${product.id}`}>
+            <div className="w-[300px] flex flex-col gap-[16px]">
               <img
                 src={product?.image}
                 alt="product-image"
