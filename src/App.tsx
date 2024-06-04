@@ -50,27 +50,28 @@ function App() {
       window.localStorage.setItem("orders", JSON.stringify(orders));
   }, [orders]);
 
-  // function handleRemoveProduct(product: IOrders) {
-  //   const productExist = orders.find((item) => item.id === product.id);
-  //   if (productExist?.quantity === 1) {
-  //     setOrders(orders.filter((item) => item.id !== product.id));
-  //   } else {
-  //     setOrders(
-  //       orders.map((item) =>
-  //         item?.id === product.id
-  //           ? { ...productExist, quantity: productExist.quantity - 1 }
-  //           : item
-  //       )
-  //     );
-  //   }
-  // }
+  function handleRemoveProduct(product: IProductData) {
+    const productExist = orders.find((item) => item?.id === product?.id);
+    if (productExist?.quantity === 1) {
+      setOrders(orders.filter((item) => item.id !== product.id));
+    } else {
+      orders.map((item) =>
+        item.id === product.id
+          ? {
+              ...productExist,
+              quantity: productExist.quantity - 1,
+            }
+          : item
+      );
+    }
+  }
   function handleAddProduct(product: IProductData) {
     const productExist = orders.find((item) => item?.id === product?.id);
 
     if (productExist) {
       setOrders(
         orders.map((item) =>
-          item.id == product.id
+          item.id === product.id
             ? {
                 ...productExist,
                 quantity: productExist.quantity + 1,
@@ -82,17 +83,12 @@ function App() {
       setOrders([...orders, { ...product, quantity: 1 }]);
     }
   }
-  function handleOrderWindow() {
-    setOrderActive(!orderActive);
-  }
 
   console.log(orders);
   return (
     <div>
       <Header
         setSearchValue={setSearchValue}
-        searchValue={searchValue}
-        handleOrderActive={handleOrderWindow}
         handleLoginWindow={handleLoginWindow}
       />
 

@@ -2,15 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import data from "../data.json";
 import { IProductData } from "../types.d";
 import { Link } from "react-router-dom";
-
-interface IProps {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-}
-export default function HomePage({ searchResults }: IProps) {
+type TProps = {
+  searchResults: IProductData[];
+};
+export default function HomePage({ searchResults }: TProps) {
   const [productData, setProductData] = useState<IProductData[]>(data);
   useEffect(() => {
     if (searchResults.length > 0) {

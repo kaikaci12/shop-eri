@@ -21,17 +21,16 @@ const navLinks = [
   },
 ];
 
-type Props = {
+type TProps = {
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  handleOrderWindow: Function;
   handleLoginWindow: Function;
 };
 
 export default function Header({
   setSearchValue,
-  handleOrderWindow,
+
   handleLoginWindow,
-}: Props) {
+}: TProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [menuActive, setMenuActive] = useState(false);
 
