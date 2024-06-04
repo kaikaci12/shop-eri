@@ -49,22 +49,25 @@ function App() {
     if (window.localStorage.getItem("orders"))
       window.localStorage.setItem("orders", JSON.stringify(orders));
   }, [orders]);
-
+  function updateOrders(orders: IOrders[], product: IProductData) {
+    return orders.map((item) =>
+      item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
+    );
+  }
   function handleRemoveProduct(product: IProductData) {
     const productExist = orders.find((item) => item?.id === product?.id);
-    if (productExist?.quantity === 1) {
-      setOrders(orders.filter((item) => item.id !== product.id));
+    if (productExist) {
+      if (productExist.quantity === 1) {
+        setOrders(orders.filter((item) => item.id !== product.id));
+      } else {
+        setOrders(updateOrders(orders, product));
+      }
     } else {
-      orders.map((item) =>
-        item.id === product.id
-          ? {
-              ...productExist,
-              quantity: productExist.quantity - 1,
-            }
-          : item
-      );
+      // Handle the case where the product doesn't exist (optional)
+      console.warn("Product not found in orders");
     }
   }
+
   function handleAddProduct(product: IProductData) {
     const productExist = orders.find((item) => item?.id === product?.id);
 
@@ -113,7 +116,17 @@ function App() {
           element={<Product handleAddProduct={handleAddProduct} />}
         />
 
-        <Route path="/orders" element={<Orders orders={orders} />} />
+        <Route
+          path="/orders"
+          element={
+            <Orders
+              orders={orders}
+              handleAddProduct={handleAddProduct}
+              handleRemoveAll={handleRemoveAll}
+              handleRemoveProduct={handleRemoveProduct}
+            />
+          }
+        />
       </Routes>
     </div>
   );
