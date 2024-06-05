@@ -3,6 +3,7 @@ import data from "../data.json";
 import { IProductData } from "../types.d";
 import { orderContext } from "../App";
 import { Link } from "react-router-dom";
+import Banner from "../components/Banner";
 type TProps = {
   handleAddProduct: Function;
   searchResults: IProductData[];
@@ -19,6 +20,7 @@ export default function HomePage({ searchResults, handleAddProduct }: TProps) {
   }, [searchResults]);
   return (
     <div className="bg-white flex flex-wrap gap-[60px] p-[32px]">
+      <Banner />
       {productData.map((product) => {
         return (
           <Link key={product.id} to={`/product/${product.id}`}>

@@ -111,18 +111,18 @@ export default function Login({ handleLoginWindow, handleRegWindow }: IProps) {
           ავტორიზაცია
         </button>
         <h2 className="text-center">არ გაქვს ანგარიში?</h2>
-      </form>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
+        <button
+          onClick={(e) => {
+            e.preventDefault();
 
-          handleLoginWindow();
-          handleRegWindow();
-        }}
-        className="text-center font-bold text-blue-400"
-      >
-        <h2 className="w-full">რეგისტრაცია</h2>
-      </button>
+            handleLoginWindow();
+            handleRegWindow();
+          }}
+          className="text-center font-bold text-blue-400"
+        >
+          <h2 className="w-full">რეგისტრაცია</h2>
+        </button>
+      </form>
     </div>
   );
 }
