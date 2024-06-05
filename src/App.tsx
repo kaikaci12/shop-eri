@@ -59,7 +59,14 @@ function App() {
       console.warn("Product not found in orders");
     }
   }
-
+  const handleDeleteOrder = (product: IProductData) => {
+    const productExist = orders.find((item) => item?.id === product?.id);
+    if (productExist) {
+      setOrders(orders.filter((item) => item.id !== product.id));
+    } else {
+      return;
+    }
+  };
   function handleAddProduct(product: IProductData) {
     const productExist = orders.find((item) => item?.id === product?.id);
 
@@ -110,6 +117,7 @@ function App() {
                 handleAddProduct={handleAddProduct}
                 handleRemoveAll={handleRemoveAll}
                 handleRemoveProduct={handleRemoveProduct}
+                handleDeleteOrder={handleDeleteOrder}
               />
             }
           />

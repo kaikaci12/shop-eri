@@ -1,15 +1,18 @@
 import React, { useContext } from "react";
 import { orderContext } from "../App";
 import { IOrders } from "../types";
+import { ImBin } from "react-icons/im";
 type TProps = {
   handleRemoveProduct: Function;
   handleRemoveAll: Function;
   handleAddProduct: Function;
+  handleDeleteOrder: Function;
 };
 export default function Orders({
   handleRemoveProduct,
   handleAddProduct,
   handleRemoveAll,
+  handleDeleteOrder,
 }: TProps) {
   const orders = useContext(orderContext);
   console.log(orders);
@@ -66,6 +69,12 @@ export default function Orders({
                             className="text-[#000] text-center text-[13px] font-bold tracking-[1px] uppercase opacity-25 cursor-pointer"
                           >
                             +
+                          </button>
+                          <button
+                            className="cursor-pointer "
+                            onClick={() => handleDeleteOrder(item)}
+                          >
+                            <ImBin />
                           </button>
                         </div>
                       </div>
