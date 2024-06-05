@@ -17,6 +17,7 @@ const slides = [
 
 export default function Banner() {
   const [currentIndex, setCurrentIndex] = useState(0);
+
   function prevSlide() {
     const isFirst = currentIndex === 0;
     const newIndex = isFirst ? slides.length - 1 : currentIndex - 1;
@@ -27,11 +28,14 @@ export default function Banner() {
     const newIndex = isLast ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+  function goToSlide(slideIndex: number) {
+    setCurrentIndex(slideIndex);
+  }
   return (
-    <div className="max-w-[1400px] h-[780px] w-full  m-auto py-16 relative group">
+    <div className="flex flex-col  justify-center items-center h-[500px] w-full  m-auto py-16 relative group">
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-        className="h-full w-full rounded-2xl  bg-center  bg-contain  duration-500"
+        className="h-full max-w-[850px] w-full rounded-2xl  bg-center  bg-contain  duration-500"
       ></div>
       <div
         onClick={prevSlide}
@@ -45,11 +49,20 @@ export default function Banner() {
       >
         <BsChevronCompactRight size={30} />
       </div>
-      <div className="flex top-4 justify-center py-2 ">
-        {slides.map((item, index) => {
+      <div className="flex top-4 justify-center py-2 gap-[10px]">
+        {slides.map((_, index) => {
           return (
-            <div>
-              <RxDotFilled />
+            <div
+              onClick={() => goToSlide(index)}
+              key={index}
+              className={`rounded-lg   `}
+            >
+              <div
+                className={`w-[10px] h-[10px] cursor-pointer rounded-lg bg-gray-500 ${
+                  index === currentIndex ? "bg-gray-700" : ""
+                } border-solid `}
+              ></div>
+              {/* <RxDotFilled /> */}
             </div>
           );
         })}
