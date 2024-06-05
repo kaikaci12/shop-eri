@@ -10,7 +10,7 @@ import Product from "./pages/Product";
 import data from "./data.json";
 import { IProductData, IOrders } from "./types.d";
 
-export const orderContext = createContext([]);
+export const orderContext = createContext<IOrders[]>([]);
 
 function App() {
   const [regWindow, setRegWindow] = useState<boolean>(false);
@@ -29,10 +29,12 @@ function App() {
 
   function handleRegWindow() {
     setRegWindow((prev) => !prev);
+    console.log(regWindow);
   }
   function handleLoginWindow() {
     setLoginWindow((prev) => !prev);
   }
+
   function handleRemoveAll() {
     setOrders([]);
   }
@@ -54,7 +56,6 @@ function App() {
         setOrders(updateOrders(orders, product));
       }
     } else {
-      // Handle the case where the product doesn't exist (optional)
       console.warn("Product not found in orders");
     }
   }
@@ -78,7 +79,6 @@ function App() {
     }
   }
 
-  console.log(orders);
   return (
     <div>
       <Header
@@ -86,40 +86,54 @@ function App() {
         handleLoginWindow={handleLoginWindow}
         orders={orders}
       />
+      <orderContext.Provider value={orders}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                searchResults={searchResults}
+                handleAddProduct={handleAddProduct}
+              />
+            }
+          />
 
-      {regWindow && (
-        <Register
-          handleRegWindow={handleRegWindow}
-          handleLoginWindow={handleLoginWindow}
-        />
-      )}
+          <Route
+            path="/product/:id"
+            element={<Product handleAddProduct={handleAddProduct} />}
+          />
 
-      {loginWindow && (
-        <Login
-          handleRegWindow={handleLoginWindow}
-          handleLoginWindow={handleLoginWindow}
-        />
-      )}
+          <Route
+            path="/orders"
+            element={
+              <Orders
+                handleAddProduct={handleAddProduct}
+                handleRemoveAll={handleRemoveAll}
+                handleRemoveProduct={handleRemoveProduct}
+              />
+            }
+          />
+        </Routes>
+      </orderContext.Provider>
 
-      <Routes>
-        <Route path="/" element={<HomePage searchResults={searchResults} />} />
-        <Route
-          path="/product/:id"
-          element={<Product handleAddProduct={handleAddProduct} />}
-        />
-
-        <Route
-          path="/orders"
-          element={
-            <Orders
-              orders={orders}
-              handleAddProduct={handleAddProduct}
-              handleRemoveAll={handleRemoveAll}
-              handleRemoveProduct={handleRemoveProduct}
-            />
-          }
-        />
-      </Routes>
+      {regWindow ||
+        (loginWindow && (
+          <div className="fixed h-[100vh] w-full top-0 overflow-hidden">
+            {regWindow && (
+              <Register
+                handleRegWindow={handleRegWindow}
+                handleLoginWindow={handleLoginWindow}
+                regWindow={regWindow}
+              />
+            )}
+            {loginWindow && (
+              <Login
+                handleRegWindow={handleLoginWindow}
+                handleLoginWindow={handleLoginWindow}
+              />
+            )}
+          </div>
+        ))}
     </div>
   );
 }

@@ -49,12 +49,12 @@ export default function Login({ handleLoginWindow, handleRegWindow }: IProps) {
 
   return (
     <div
-      className="h-[100vh] absolute   w-full   flex flex-col items-center   px-[30px]    bg-opacity-40 bg-black
+      className="h-[100vh] absolute min-h-screen  overflow-hidden       bg-fixed   w-full   flex flex-col items-center   px-[30px]    bg-opacity-40 bg-black
     "
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[20px] sm:mt-[30px]  bg-white w-full p-[48px] lg:w-[50%]"
+        className="flex flex-col gap-[20px] relative top-[100px] sm:mt-[30px]  bg-white w-full p-[48px] lg:w-[50%]"
       >
         <div
           onClick={() => handleLoginWindow()}

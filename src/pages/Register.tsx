@@ -10,10 +10,12 @@ import * as yup from "yup";
 type TRegWindow = {
   handleLoginWindow: Function;
   handleRegWindow: Function;
+  regWindow: boolean;
 };
 export default function Register({
   handleRegWindow,
   handleLoginWindow,
+  regWindow,
 }: TRegWindow) {
   const [visible1, setVisible1] = useState<boolean>(false);
   const [visible2, setVisible2] = useState<boolean>(false);
@@ -67,17 +69,18 @@ export default function Register({
   console.log(errors);
   return (
     <div
-      className=" h-full  w-full   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
+      className=" min-h-screen h-full overflow-hidden  w-full     bg-fixed   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
     "
     >
-      {/* <img src={LoginImg} alt="image" className="lg:w-[50%] " /> */}
-
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col  gap-[15px] z-[999]   mt-[50px]   bg-white p-[30px] sm:w-[650px] sm:mt-[80px]   lg:min-w-[800px]"
+        className="flex flex-col     relative   gap-[15px] z-[999]   mt-[50px]    bg-white p-[30px] sm:w-[650px] sm:mt-[80px]   lg:min-w-[800px]"
       >
         <div
-          onClick={() => handleRegWindow()}
+          onClick={(e) => {
+            e.preventDefault();
+            handleRegWindow(regWindow);
+          }}
           className=" w-full flex justify-end  cursor-pointer"
         >
           <img src={CloseIcon} alt="" className="w-[20px] " />
@@ -194,7 +197,8 @@ export default function Register({
         <div className="w-full h-[2px] bg-[grey]"></div>
         <h2 className="text-center">გაქვს უკვე ანგარიში?</h2>
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             handleRegWindow();
             handleLoginWindow();
           }}

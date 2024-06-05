@@ -1,18 +1,17 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { orderContext } from "../App";
 import { IOrders } from "../types";
 type TProps = {
-  orders: IOrders[];
   handleRemoveProduct: Function;
   handleRemoveAll: Function;
   handleAddProduct: Function;
 };
 export default function Orders({
-  orders,
   handleRemoveProduct,
   handleAddProduct,
   handleRemoveAll,
 }: TProps) {
+  const orders = useContext(orderContext);
   console.log(orders);
   const totalPrice = orders.reduce(
     (sum, item) => sum + item.quantity * item.price,

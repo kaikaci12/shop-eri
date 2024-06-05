@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import data from "../data.json";
 import { IProductData } from "../types.d";
+import { orderContext } from "../App";
 import { Link } from "react-router-dom";
 type TProps = {
+  handleAddProduct: Function;
   searchResults: IProductData[];
 };
-export default function HomePage({ searchResults }: TProps) {
+export default function HomePage({ searchResults, handleAddProduct }: TProps) {
   const [productData, setProductData] = useState<IProductData[]>(data);
+
   useEffect(() => {
     if (searchResults.length > 0) {
       setProductData(searchResults);
@@ -15,7 +18,7 @@ export default function HomePage({ searchResults }: TProps) {
     }
   }, [searchResults]);
   return (
-    <div className="bg-white flex flex-wrap gap-[30px] p-[32px]">
+    <div className="bg-white flex flex-wrap gap-[60px] p-[32px]">
       {productData.map((product) => {
         return (
           <Link key={product.id} to={`/product/${product.id}`}>
@@ -33,8 +36,14 @@ export default function HomePage({ searchResults }: TProps) {
                 <p>{product.description.slice(0, 50)}...</p>
               </div>
 
-              <button className="bg-orange-400 w-[50%] h-[50px] px-[16px] flex items-center text-white font-bold text-xl">
-                ნახვა
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleAddProduct(product);
+                }}
+                className="bg-orange-400 w-[50%] h-[50px] px-[16px] flex items-center text-white font-bold text-xl"
+              >
+                შეკვეთებში დამატება
               </button>
             </div>
           </Link>

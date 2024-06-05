@@ -88,14 +88,19 @@ export default function Header({
             <span>ჩემი შეკვეთები</span>
 
             <img src={OrderIcon} alt="" className="w-[40px] mt-[10px]" />
-            <div className="w-[16px] h-[20px] relative  right-[20px] bottom-[10px] rounded-lg bg-red-500 flex justify-center items-center text-white font-bold text-[1rem]">
-              {orders.length}
-            </div>
+            {orders.length > 0 && (
+              <div className="w-[16px] h-[20px] relative  right-[20px] bottom-[10px] rounded-lg bg-red-500 flex justify-center items-center text-white font-bold text-[1rem]">
+                {orders.length}
+              </div>
+            )}
           </div>
         </Link>
 
         <div
-          onClick={() => handleLoginWindow()}
+          onClick={(e) => {
+            e.preventDefault();
+            handleLoginWindow();
+          }}
           className="flex    cursor-pointer text-white font-bold h-full items-center "
         >
           შესვლა
