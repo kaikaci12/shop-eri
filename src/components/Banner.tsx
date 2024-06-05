@@ -17,7 +17,15 @@ const slides = [
 
 export default function Banner() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => {
+        return prevIndex === slides.length - 1 ? 0 : prevIndex + 1;
+      });
+    }, 5000);
 
+    return () => clearInterval(interval);
+  }, []);
   function prevSlide() {
     const isFirst = currentIndex === 0;
     const newIndex = isFirst ? slides.length - 1 : currentIndex - 1;
@@ -34,7 +42,12 @@ export default function Banner() {
   return (
     <div className="flex flex-col  justify-center items-center h-[500px] w-full  m-auto py-16 relative group">
       <div
-        style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+        style={{
+          backgroundImage: `url(${slides[currentIndex].url})
+        
+        `,
+          transition: "background-image 0.5s ease",
+        }}
         className="h-full max-w-[850px] w-full rounded-2xl  bg-center  bg-contain  duration-500"
       ></div>
       <div
