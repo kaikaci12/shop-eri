@@ -4,8 +4,8 @@ import Menu from "/assets/menu.png";
 import { useEffect, useState } from "react";
 import SearchIcon from "/assets/search.png";
 import OrderIcon from "/assets/order-icon.png";
-import Orders from "./Orders";
-import { string } from "yup";
+import { IOrders } from "../types";
+
 const navLinks = [
   {
     name: "მაღაზია",
@@ -24,11 +24,12 @@ const navLinks = [
 type TProps = {
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   handleLoginWindow: Function;
+  orders: IOrders[];
 };
 
 export default function Header({
   setSearchValue,
-
+  orders,
   handleLoginWindow,
 }: TProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -85,7 +86,11 @@ export default function Header({
         <Link to="/orders">
           <div className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex gap-[10px]">
             <span>ჩემი შეკვეთები</span>
-            <img src={OrderIcon} alt="" className=" w-[40px] mt-[10px]" />
+
+            <img src={OrderIcon} alt="" className="w-[40px] mt-[10px]" />
+            <div className="w-[16px] h-[20px] relative  right-[20px] bottom-[10px] rounded-lg bg-red-500 flex justify-center items-center text-white font-bold text-[1rem]">
+              {orders.length}
+            </div>
           </div>
         </Link>
 

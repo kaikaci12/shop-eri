@@ -6,10 +6,10 @@ export interface IProductData {
   image: string;
 }
 export interface IOrders {
-  id: number;
-  name: string;
   description: string;
-  price: number;
+  id: number;
   image: string;
+  name: string;
+  price: number;
   quantity: number;
 }

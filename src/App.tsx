@@ -8,16 +8,7 @@ import Login from "./pages/Login";
 import { createContext, useEffect, useState } from "react";
 import Product from "./pages/Product";
 import data from "./data.json";
-import { IProductData } from "./types.d";
-
-export interface IOrders {
-  description: string;
-  id: number;
-  image: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { IProductData, IOrders } from "./types.d";
 
 export const orderContext = createContext([]);
 
@@ -93,6 +84,7 @@ function App() {
       <Header
         setSearchValue={setSearchValue}
         handleLoginWindow={handleLoginWindow}
+        orders={orders}
       />
 
       {regWindow && (

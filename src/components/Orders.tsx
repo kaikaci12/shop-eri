@@ -1,7 +1,6 @@
 import React from "react";
-import { orderContext } from "../App";
-import { useContext } from "react";
-import { IOrders } from "../App";
+
+import { IOrders } from "../types";
 type TProps = {
   orders: IOrders[];
   handleRemoveProduct: Function;
@@ -33,7 +32,7 @@ export default function Orders({
                 onClick={() => handleRemoveAll()}
                 className="text-[#000] text-[15px] font-normal leading-[25px] opacity-50 underline cursor-pointer h-[2px]"
               >
-                Remove all
+                შეკვეთების გასუფთავება
               </button>
             </div>
             <div className="flex flex-col gap-[24px] w-full items-center justify-center ">
@@ -84,7 +83,7 @@ export default function Orders({
                 გადასახდელი თანხა:
               </span>
               <span className="text-[#000] text-center text-[18px] font-bold uppercase">
-                {`$${totalPrice}`}
+                {`ლ${totalPrice}`}
               </span>
             </div>
 
