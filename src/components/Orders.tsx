@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { orderContext } from "../App";
 import { IOrders } from "../types";
 import { ImBin } from "react-icons/im";
@@ -14,6 +14,7 @@ export default function Orders({
   handleRemoveAll,
   handleDeleteOrder,
 }: TProps) {
+  const [deleteAlert, setDeleteAlert] = useState<boolean>(false);
   const orders = useContext(orderContext);
   console.log(orders);
   const totalPrice = orders.reduce(
@@ -41,6 +42,28 @@ export default function Orders({
               {orders.map((item, index) => {
                 return (
                   <div key={index} className="w-full">
+                    {deleteAlert && (
+                      <div className="bg-orange-400 z-[999] absolute w-[50%] h-[50%] left-40 right-40 top-[100px] p-4 text-2xl flex flex-col justify-between">
+                        დარწმუნებული ხართ რომ გსურთ პროდუქტის წაშლა?
+                        <div className="flex justify-between">
+                          <button
+                            onClick={() => setDeleteAlert(false)}
+                            className="bg-[red]"
+                          >
+                            არა
+                          </button>
+                          <button
+                            onClick={() => {
+                              setDeleteAlert(false);
+                              handleDeleteOrder(item);
+                            }}
+                            className="bg-[red]"
+                          >
+                            დიახ
+                          </button>
+                        </div>
+                      </div>
+                    )}
                     {item.quantity >= 1 && orders.length >= 1 && (
                       <div className="h-[64px] flex gap-[20px] items-center justify-between">
                         <img
@@ -58,7 +81,13 @@ export default function Orders({
                         </div>
                         <div className="flex  h-[32px] bg-[#F1F1F1] items-center  text-[#000] text-center text-[13px] font-bold tracking-[1px] justify-between px-[11.5px] gap-[12px]">
                           <button
-                            onClick={() => handleRemoveProduct(item)}
+                            onClick={() => {
+                              if (orders.length > 1) {
+                                handleRemoveProduct(item);
+                              } else {
+                                setDeleteAlert(true);
+                              }
+                            }}
                             className="text-[#000] text-center text-[13px] font-bold tracking-[1px] uppercase opacity-25 cursor-pointer"
                           >
                             -
@@ -72,7 +101,9 @@ export default function Orders({
                           </button>
                           <button
                             className="cursor-pointer "
-                            onClick={() => handleDeleteOrder(item)}
+                            onClick={() => {
+                              setDeleteAlert(true);
+                            }}
                           >
                             <ImBin />
                           </button>
