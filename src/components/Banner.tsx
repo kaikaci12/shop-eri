@@ -1,5 +1,7 @@
 import React from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { RxDotFilled } from "react-icons/rx";
+
 import { useState, useEffect } from "react";
 const slides = [
   {
@@ -39,9 +41,18 @@ export default function Banner() {
       </div>
       <div
         onClick={nextSlide}
-        className=" hidden group-hover:block absolute top-[50%] translate-x-0 traslate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer "
+        className=" hidden group-hover:block  absolute top-[50%] translate-x-0 traslate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer "
       >
         <BsChevronCompactRight size={30} />
+      </div>
+      <div className="flex top-4 justify-center py-2 ">
+        {slides.map((item, index) => {
+          return (
+            <div>
+              <RxDotFilled />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
