@@ -40,15 +40,15 @@ export default function Banner() {
     setCurrentIndex(slideIndex);
   }
   return (
-    <div className="flex flex-col  justify-center items-center h-[500px] w-full  m-auto py-16 relative group">
+    <div className=" flex flex-col  justify-center items-center h-[400px] sm:h-[500px]  mt-[30px] sm:mt-[80px] w-full  m-auto py-16  group">
       <div
         style={{
           backgroundImage: `url(${slides[currentIndex].url})
         
         `,
-          transition: "background-image 0.5s ease",
+          transition: "ease-in-out 0.5s",
         }}
-        className="h-full max-w-[850px] w-full rounded-2xl  bg-center  bg-contain  duration-500"
+        className="h-full max-w-[1000px] w-full rounded-xl   bg-center  bg-cover duration-500"
       ></div>
       <div
         onClick={prevSlide}

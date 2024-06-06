@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import SearchIcon from "/assets/search.png";
 import OrderIcon from "/assets/order-icon.png";
 import { IOrders } from "../types";
-
+import { FiShoppingCart } from "react-icons/fi";
 const navLinks = [
   {
     name: "მაღაზია",
@@ -46,7 +46,7 @@ export default function Header({
   }, []);
 
   return (
-    <header className="bg-gray-400 sm:h-[150px]   h-[100px] w-full  flex flex-col gap-[32px]  items-center px-[16px] pb-[16px]">
+    <header className="bg-gray-400 sm:h-[150px] fixed   h-[100px] w-full  flex flex-col gap-[32px]  items-center px-[16px] pb-[16px]">
       <div className="h-full flex items-center w-full ">
         {windowWidth < 640 ? (
           <div
@@ -84,10 +84,10 @@ export default function Header({
 
       <div className="absolute h-[100px] sm:h-[150px] right-[20px] flex-col  flex gap-[1px]  items-center">
         <Link to="/orders">
-          <div className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex gap-[10px]">
-            <span>ჩემი შეკვეთები</span>
+          <div className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex ">
+            <span>კალათა</span>
 
-            <img src={OrderIcon} alt="" className="w-[40px] mt-[10px]" />
+            <FiShoppingCart size={30} />
             {orders.length > 0 && (
               <div className="w-[16px] h-[20px] relative  right-[20px] bottom-[10px] rounded-lg bg-red-500 flex justify-center items-center text-white font-bold text-[1rem]">
                 {orders.length}

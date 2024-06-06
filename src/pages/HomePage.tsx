@@ -4,13 +4,29 @@ import { IProductData } from "../types.d";
 import { orderContext } from "../App";
 import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
+import AddedToCart from "../components/AddedToCart";
+
 type TProps = {
   handleAddProduct: Function;
   searchResults: IProductData[];
 };
+export type singleProduct = {
+  description: string;
+  id: number;
+  image: string;
+  name: string;
+  price: number;
+};
 export default function HomePage({ searchResults, handleAddProduct }: TProps) {
   const [productData, setProductData] = useState<IProductData[]>(data);
-
+  const [addedCart, setAddedCart] = useState<boolean>(false);
+  const [singleProduct, setSingleProduct] = useState<singleProduct>({
+    description: "",
+    id: 0,
+    image: "",
+    name: "",
+    price: 0,
+  });
   useEffect(() => {
     if (searchResults.length > 0) {
       setProductData(searchResults);
@@ -19,37 +35,47 @@ export default function HomePage({ searchResults, handleAddProduct }: TProps) {
     }
   }, [searchResults]);
   return (
-    <div>
+    <div className=" p-[32px] sm:p-[50px]">
       <Banner />
-      <div className="bg-white flex flex-wrap gap-[60px] p-[32px]">
+      {addedCart && (
+        <AddedToCart
+          setAddedCart={setAddedCart}
+          singleProduct={singleProduct}
+        />
+      )}
+      <div className="bg-white flex flex-wrap gap-[60px]">
         {productData.map((product) => {
           return (
-            <Link key={product.id} to={`/product/${product.id}`}>
-              <div className="w-[300px] flex flex-col gap-[16px]">
-                <img
-                  src={product?.image}
-                  alt="product-image"
-                  className="w-full"
-                />
-                <div className="flex flex-col gap-[12px]">
-                  <span className="text-orange-400 text-[2rem] font-bold">
-                    {product.price}ლ
-                  </span>
-                  <h2 className="">{product.name}</h2>
-                  <p>{product.description.slice(0, 50)}...</p>
-                </div>
+            <div>
+              <Link key={product.id} to={`/product/${product.id}`}>
+                <div className="w-[300px] flex flex-col gap-[16px]">
+                  <img
+                    src={product?.image}
+                    alt="product-image"
+                    className="w-full"
+                  />
+                  <div className="flex flex-col gap-[12px]">
+                    <span className="text-orange-400 text-[2rem] font-bold">
+                      {product.price}ლ
+                    </span>
+                    <h2 className="">{product.name}</h2>
+                    <p>{product.description.slice(0, 50)}...</p>
+                  </div>
 
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleAddProduct(product);
-                  }}
-                  className="bg-orange-400 w-[50%] h-[50px] px-[16px] flex items-center text-white font-bold text-xl"
-                >
-                  შეკვეთებში დამატება
-                </button>
-              </div>
-            </Link>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleAddProduct(product);
+                      setAddedCart(true);
+                      setSingleProduct(product);
+                    }}
+                    className="bg-orange-400 w-[50%] h-[50px] px-[16px] flex items-center text-white font-bold text-xl"
+                  >
+                    კალათაში დამატება
+                  </button>
+                </div>
+              </Link>
+            </div>
           );
         })}
         {searchResults.length === 0 && (
