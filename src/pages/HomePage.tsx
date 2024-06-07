@@ -46,9 +46,9 @@ export default function HomePage({ searchResults, handleAddProduct }: TProps) {
       <div className="bg-white flex flex-wrap gap-[60px]">
         {productData.map((product) => {
           return (
-            <div>
+            <div className=" ">
               <Link key={product.id} to={`/product/${product.id}`}>
-                <div className="w-[300px] flex flex-col gap-[16px]">
+                <div className="w-[300px] flex flex-col gap-[16px] border-solid outline-[green]  ">
                   <img
                     src={product?.image}
                     alt="product-image"

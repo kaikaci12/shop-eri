@@ -28,13 +28,13 @@ export default function AddedToCart({ setAddedCart, singleProduct }: Props) {
           <h2 className="">{singleProduct.name}</h2>
         </div>
         <div className=" flex justify-between mt-auto">
-          <Link to="/orders">
-            <button className="bg-red-500  w-fit p-5 h-fit text-xl">
+          <Link to="/cart">
+            <button className="bg-red-500  rounded-2xl  w-fit p-5 h-fit text-xl">
               კალათა
             </button>
           </Link>
 
-          <button className="bg-yellow-400 w-fit  p-5 text-xl">
+          <button className="bg-yellow-400 w-fit rounded-2xl  p-5 text-xl">
             შეკვეთის გაფორმება
           </button>
         </div>

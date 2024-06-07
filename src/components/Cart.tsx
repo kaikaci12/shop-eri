@@ -8,7 +8,7 @@ type TProps = {
   handleAddProduct: Function;
   handleDeleteOrder: Function;
 };
-export default function Orders({
+export default function Cart({
   handleRemoveProduct,
   handleAddProduct,
   handleRemoveAll,

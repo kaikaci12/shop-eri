@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import Register from "./pages/Register";
-import Orders from "./components/Orders";
+import Orders from "./components/Cart";
 import Login from "./pages/Login";
 import { createContext, useEffect, useState } from "react";
 import Product from "./pages/Product";
@@ -111,7 +111,7 @@ function App() {
           />
 
           <Route
-            path="/orders"
+            path="/cart"
             element={
               <Orders
                 handleAddProduct={handleAddProduct}
