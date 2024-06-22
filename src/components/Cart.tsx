@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { orderContext } from "../App";
 import { IOrders } from "../types";
 import { ImBin } from "react-icons/im";
+import { Link } from "react-router-dom";
 type TProps = {
   handleRemoveProduct: Function;
   handleRemoveAll: Function;
@@ -125,10 +126,11 @@ export default function Cart({
                 {`ლ${totalPrice}`}
               </span>
             </div>
-
-            <button className="text-[#FFF] text-center text-[13px] font-bold leading-[normal] tracking-[1px] uppercase w-full px-[52px] py-[15px] h-[48px] bg-[#D87D4A] cursor-pointer">
-              შემდეგი
-            </button>
+            <Link to="/checkout">
+              <button className="text-[#FFF] text-center text-[13px] font-bold leading-[normal] tracking-[1px] uppercase w-full px-[52px] py-[15px] h-[48px] bg-[#D87D4A] cursor-pointer">
+                შემდეგი
+              </button>
+            </Link>
           </div>
         </div>
       ) : (

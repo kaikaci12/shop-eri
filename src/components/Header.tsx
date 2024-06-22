@@ -44,7 +44,17 @@ export default function Header({
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  useEffect(() => {
+    const handleHeaderChange = () => {
+      if (window.scrollY > 250) {
+        console.log("damn");
+      }
+    };
+    window.addEventListener("scroll", handleHeaderChange);
+    return () => {
+      window.removeEventListener("scroll", handleHeaderChange);
+    };
+  });
   return (
     <header className="bg-gray-400 sm:h-[150px] fixed   h-[100px] w-full  flex flex-col gap-[32px]  items-center px-[16px] pb-[16px]">
       <div className="h-full flex items-center w-full ">
@@ -83,7 +93,7 @@ export default function Header({
       </div>
 
       <div className="absolute h-[100px] sm:h-[150px] right-[20px] flex-col  flex gap-[1px]  items-center">
-        <Link to="/orders">
+        <Link to="/cart">
           <div className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex ">
             <span>კალათა</span>
 

@@ -8,12 +8,13 @@ import Login from "./pages/Login";
 import { createContext, useEffect, useState } from "react";
 import Product from "./pages/Product";
 import data from "./data.json";
+import Checkout from "./components/Checkout";
 import { IProductData, IOrders } from "./types.d";
 
 export const orderContext = createContext<IOrders[]>([]);
 
 function App() {
-  const [regWindow, setRegWindow] = useState<boolean>(false);
+  const [regWindow, setRegWindow] = useState<boolean>(true);
   const [loginWindow, setLoginWindow] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResults, setSearchResults] = useState<IProductData[]>([]);
@@ -33,6 +34,7 @@ function App() {
   }
   function handleLoginWindow() {
     setLoginWindow((prev) => !prev);
+    console.log(regWindow);
   }
 
   function handleRemoveAll() {
@@ -95,6 +97,7 @@ function App() {
       />
       <orderContext.Provider value={orders}>
         <Routes>
+          <Route path="/checkout" element={<Checkout />} />
           <Route
             path="/"
             element={
@@ -124,24 +127,24 @@ function App() {
         </Routes>
       </orderContext.Provider>
 
-      {regWindow ||
-        (loginWindow && (
-          <div className="fixed h-[100vh] w-full top-0 overflow-hidden">
-            {regWindow && (
-              <Register
-                handleRegWindow={handleRegWindow}
-                handleLoginWindow={handleLoginWindow}
-                regWindow={regWindow}
-              />
-            )}
-            {loginWindow && (
-              <Login
-                handleRegWindow={handleLoginWindow}
-                handleLoginWindow={handleLoginWindow}
-              />
-            )}
-          </div>
-        ))}
+      {loginWindow && (
+        <div className="fixed h-[100vh] w-full top-0 overflow-hidden">
+          <Login
+            handleRegWindow={handleRegWindow}
+            handleLoginWindow={handleLoginWindow}
+          />
+        </div>
+      )}
+
+      {regWindow && (
+        <div className="fixed h-[100vh] w-full top-0 overflow-hidden">
+          <Register
+            handleRegWindow={handleRegWindow}
+            handleLoginWindow={handleLoginWindow}
+            regWindow={regWindow}
+          />
+        </div>
+      )}
     </div>
   );
 }

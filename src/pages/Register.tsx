@@ -69,7 +69,7 @@ export default function Register({
   console.log(errors);
   return (
     <div
-      className=" min-h-screen h-full overflow-hidden  w-full     bg-fixed   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
+      className=" min-h-screen h-full overflow-hidden   w-full     bg-fixed   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
     "
     >
       <form
@@ -195,17 +195,19 @@ export default function Register({
           რეგისტრაცია
         </button>
         <div className="w-full h-[2px] bg-[grey]"></div>
-        <h2 className="text-center">გაქვს უკვე ანგარიში?</h2>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            handleRegWindow();
-            handleLoginWindow();
-          }}
-          className="text-center font-bold text-blue-400"
-        >
-          <h2>ავტორიზაცია</h2>
-        </button>
+        <div className="flex flex-col gap-2">
+          <h2 className="text-center">გაქვს უკვე ანგარიში?</h2>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleRegWindow();
+              handleLoginWindow();
+            }}
+            className="text-center font-bold text-blue-400"
+          >
+            <h2>ავტორიზაცია</h2>
+          </button>
+        </div>
       </form>
     </div>
   );

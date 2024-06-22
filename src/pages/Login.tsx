@@ -113,10 +113,10 @@ export default function Login({ handleLoginWindow, handleRegWindow }: IProps) {
         <h2 className="text-center">არ გაქვს ანგარიში?</h2>
         <button
           onClick={(e) => {
+            console.log("ewrf");
             e.preventDefault();
-
-            handleLoginWindow();
             handleRegWindow();
+            handleLoginWindow();
           }}
           className="text-center font-bold text-blue-400"
         >
