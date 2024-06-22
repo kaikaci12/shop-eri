@@ -34,7 +34,7 @@ export default function Header({
 }: TProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [menuActive, setMenuActive] = useState(false);
-
+  const [headerChange, setHeaderChange] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -47,7 +47,9 @@ export default function Header({
   useEffect(() => {
     const handleHeaderChange = () => {
       if (window.scrollY > 250) {
-        console.log("damn");
+        setHeaderChange(true);
+      } else {
+        setHeaderChange(false);
       }
     };
     window.addEventListener("scroll", handleHeaderChange);
@@ -56,12 +58,16 @@ export default function Header({
     };
   });
   return (
-    <header className="bg-gray-400 sm:h-[150px] fixed   h-[100px] w-full  flex flex-col gap-[32px]  items-center px-[16px] pb-[16px]">
-      <div className="h-full flex items-center w-full ">
+    <header
+      className={`bg-gray-400 sm:h-[150px]  ${
+        headerChange && "sm:h-[100px] flex items-center fixed"
+      }   h-[100px] w-full  flex flex-col gap-[32px]  items-center p-6 `}
+    >
+      <div className={` flex flex-col   w-full ${headerChange && "flex-row"}`}>
         {windowWidth < 640 ? (
           <div
             onClick={() => setMenuActive(!menuActive)}
-            className="flex gap-[16px] items-center"
+            className={`flex gap-[16px] items-center`}
           >
             <img src={Menu} className="w-[30px] " />
             <label htmlFor="search" className="flex  gap-[10px] ">
@@ -94,7 +100,7 @@ export default function Header({
 
       <div className="absolute h-[100px] sm:h-[150px] right-[20px] flex-col  flex gap-[1px]  items-center">
         <Link to="/cart">
-          <div className="text-[1rem]  cursor-pointer items-center justify-center text-white font-bold flex ">
+          <div className="text-[1rem]  cursor-pointer mt-2 flex items-center justify-center text-white font-bold  ">
             <span>კალათა</span>
 
             <FiShoppingCart size={30} />
@@ -143,7 +149,7 @@ export default function Header({
       )}
 
       {windowWidth >= 640 && (
-        <div className="w-full">
+        <div className={`w-full `}>
           <label htmlFor="search" className="flex  gap-[10px] ">
             <div className="flex gap-[4px] items-center text-white font-bold text-[1rem]">
               ძიება
@@ -156,7 +162,9 @@ export default function Header({
             <input
               onChange={(e) => setSearchValue(e.target.value)}
               type="search"
-              className="rounded-[6px] h-[60px] px-[16px] w-[50%]"
+              className={`rounded-[6px] h-[60px] px-[16px] w-[50%] ${
+                headerChange && "hidden"
+              }`}
               placeholder="პროდუქტების ძებნა"
               id="search"
             />
