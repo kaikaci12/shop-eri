@@ -46,7 +46,7 @@ export default function Header({
   }, []);
   useEffect(() => {
     const handleHeaderChange = () => {
-      if (window.scrollY > 250) {
+      if (window.scrollY > 150) {
         setHeaderChange(true);
       } else {
         setHeaderChange(false);
@@ -59,11 +59,13 @@ export default function Header({
   });
   return (
     <header
-      className={`bg-gray-400 sm:h-[150px]  ${
-        headerChange && "sm:h-[100px] flex items-center fixed"
-      }   h-[100px] w-full  flex flex-col gap-[32px]  items-center p-6 `}
+      className={`bg-gray-400  z-[999] ${
+        headerChange
+          ? "md:h-[100px] flex items-center  ease-in-out transition-all duration-500"
+          : "md:h-[150px] relative"
+      }   h-[100px] w-full fixed flex flex-col gap-[32px]  items-center p-6 `}
     >
-      <div className={` flex flex-col   w-full ${headerChange && "flex-row"}`}>
+      <div className={` flex flex-col   w-full ${headerChange && "flex-row "}`}>
         {windowWidth < 640 ? (
           <div
             onClick={() => setMenuActive(!menuActive)}
@@ -82,45 +84,75 @@ export default function Header({
             </label>
           </div>
         ) : (
-          <nav className="flex   lg:gap-[40px]">
-            <ul className="flex gap-[20px]  items-center ">
-              {navLinks.map((link, index) => {
-                return (
-                  <Link key={index} to={link.path}>
-                    <li className="text-white font-bold text-[1rem] no-underline">
-                      {link.name}
-                    </li>
-                  </Link>
-                );
-              })}
-            </ul>
-          </nav>
-        )}
-      </div>
-
-      <div className="absolute h-[100px] sm:h-[150px] right-[20px] flex-col  flex gap-[1px]  items-center">
-        <Link to="/cart">
-          <div className="text-[1rem]  cursor-pointer mt-2 flex items-center justify-center text-white font-bold  ">
-            <span>კალათა</span>
-
-            <FiShoppingCart size={30} />
-            {orders.length > 0 && (
-              <div className="w-[16px] h-[20px] relative  right-[20px] bottom-[10px] rounded-lg bg-red-500 flex justify-center items-center text-white font-bold text-[1rem]">
-                {orders.length}
-              </div>
-            )}
+          <div
+            className={`flex  gap-5 ${headerChange ? "flex-row" : "flex-col"}`}
+          >
+            <nav className="flex   lg:gap-[40px]">
+              <ul className="flex gap-[20px]  items-center ">
+                {navLinks.map((link, index) => {
+                  return (
+                    <Link key={index} to={link.path}>
+                      <li className="text-white font-bold text-[1rem] no-underline">
+                        {link.name}
+                      </li>
+                    </Link>
+                  );
+                })}
+              </ul>
+            </nav>
+            <div className={`w-full `}>
+              <label htmlFor="search" className="flex  gap-[10px] ">
+                <div className="flex gap-[4px] items-center text-white font-bold text-[1rem]">
+                  ძიება
+                  <img
+                    src={SearchIcon}
+                    alt="search-icon"
+                    className="w-[16px] h-[16px]"
+                  />
+                </div>
+                <input
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  type="search"
+                  className={`rounded-[6px] h-[60px] px-[16px] w-[50%] ${
+                    headerChange && "lg:w-[400px]"
+                  }`}
+                  placeholder="პროდუქტების ძებნა"
+                  id="search"
+                />
+              </label>
+            </div>
           </div>
-        </Link>
-
+        )}
         <div
-          onClick={(e) => {
-            e.preventDefault();
-            handleLoginWindow();
-          }}
-          className="flex    cursor-pointer text-white font-bold h-full items-center "
+          className={`absolute flex h-[100px] sm:h-[150px] right-[20px]    ${
+            headerChange
+              ? "flex-row gap-6 md:h-[100px] top-0"
+              : "flex-col gap-6 "
+          }  items-center`}
         >
-          შესვლა
-          <img src={LoginIcon} alt="" className="w-[30px] mt-[5px]" />
+          <Link to="/cart">
+            <div className="text-[1rem]  cursor-pointer  flex items-center justify-center text-white font-bold  ">
+              <span>კალათა</span>
+
+              <FiShoppingCart size={30} />
+              {orders.length > 0 && (
+                <div className="w-[16px] h-[20px] relative  right-[20px] bottom-[10px] rounded-lg bg-red-500 flex justify-center items-center text-white font-bold text-[1rem]">
+                  {orders.length}
+                </div>
+              )}
+            </div>
+          </Link>
+
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              handleLoginWindow();
+            }}
+            className="flex    cursor-pointer text-white font-bold  items-center "
+          >
+            შესვლა
+            <img src={LoginIcon} alt="" className="w-[30px] " />
+          </div>
         </div>
       </div>
 
@@ -145,30 +177,6 @@ export default function Header({
               })}
             </ul>
           </nav>
-        </div>
-      )}
-
-      {windowWidth >= 640 && (
-        <div className={`w-full `}>
-          <label htmlFor="search" className="flex  gap-[10px] ">
-            <div className="flex gap-[4px] items-center text-white font-bold text-[1rem]">
-              ძიება
-              <img
-                src={SearchIcon}
-                alt="search-icon"
-                className="w-[16px] h-[16px]"
-              />
-            </div>
-            <input
-              onChange={(e) => setSearchValue(e.target.value)}
-              type="search"
-              className={`rounded-[6px] h-[60px] px-[16px] w-[50%] ${
-                headerChange && "hidden"
-              }`}
-              placeholder="პროდუქტების ძებნა"
-              id="search"
-            />
-          </label>
         </div>
       )}
     </header>

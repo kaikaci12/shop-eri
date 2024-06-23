@@ -14,7 +14,7 @@ import { IProductData, IOrders } from "./types.d";
 export const orderContext = createContext<IOrders[]>([]);
 
 function App() {
-  const [regWindow, setRegWindow] = useState<boolean>(true);
+  const [regWindow, setRegWindow] = useState<boolean>(false);
   const [loginWindow, setLoginWindow] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResults, setSearchResults] = useState<IProductData[]>([]);
