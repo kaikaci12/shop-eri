@@ -2,10 +2,11 @@ import LoginImg from "/assets/login-img.png";
 import CloseIcon from "/assets/close.png";
 import ShowPass from "/assets/show.png";
 import HidePass from "/assets/hide.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import * as yup from "yup";
 type TRegWindow = {
   handleLoginWindow: Function;
@@ -62,9 +63,16 @@ export default function Register({
     resolver: yupResolver(schema),
   });
   const password: string = watch("password");
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  useEffect(() => {});
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    try {
+      const checkData = await axios.post("url", {
+        learnedAxios: true,
+      });
+      if (checkData.statusText !== "OK")
+        throw new Error("failed to check data");
+    } catch (error) {}
   };
   console.log(errors);
   return (
