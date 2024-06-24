@@ -59,13 +59,13 @@ export default function Header({
   });
   return (
     <header
-      className={`bg-gray-400  z-[999] ${
+      className={`bg-gray-400   z-[999] ${
         headerChange
-          ? "md:h-[100px] flex items-center  ease-in-out transition-all duration-500"
+          ? "md:h-[100px] flex items-center fixed  ease-in-out transition-all duration-500"
           : "md:h-[150px] relative"
-      }   h-[100px] w-full fixed flex flex-col gap-[32px]  items-center p-6 `}
+      }   h-[100px] w-full flex flex-col gap-[32px]  items-center p-6 `}
     >
-      <div className={` flex flex-col   w-full ${headerChange && "flex-row "}`}>
+      <div className={` flex flex-col   w-full ${headerChange && "flex-row"}`}>
         {windowWidth < 640 ? (
           <div
             onClick={() => setMenuActive(!menuActive)}

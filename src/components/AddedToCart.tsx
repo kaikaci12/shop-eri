@@ -33,10 +33,11 @@ export default function AddedToCart({ setAddedCart, singleProduct }: Props) {
               კალათა
             </button>
           </Link>
-
-          <button className="bg-yellow-400 w-fit rounded-2xl  p-5 text-xl">
-            შეკვეთის გაფორმება
-          </button>
+          <Link to="/checkout">
+            <button className="bg-yellow-400 w-fit rounded-2xl  p-5 text-xl">
+              შეკვეთის გაფორმება
+            </button>
+          </Link>
         </div>
       </div>
     </div>

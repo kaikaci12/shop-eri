@@ -74,7 +74,13 @@ export default function Register({
         throw new Error("failed to check data");
     } catch (error) {}
   };
+
   console.log(errors);
+
+  const totalPrice = orders.reduce(
+    (sum, item) => sum + item.quantity * item.price,
+    0
+  );
   return (
     <div
       className=" min-h-screen h-full overflow-hidden   w-full     bg-fixed   flex flex-col  justify-center   sm:items-center bg-opacity-40 bg-black
