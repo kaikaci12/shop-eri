@@ -3,6 +3,7 @@ import { orderContext } from "../App";
 import { IOrders } from "../types";
 import { ImBin } from "react-icons/im";
 import { Link } from "react-router-dom";
+
 type TProps = {
   handleRemoveProduct: Function;
   handleRemoveAll: Function;

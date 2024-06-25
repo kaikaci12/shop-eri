@@ -46,13 +46,13 @@ export default function HomePage({ searchResults, handleAddProduct }: TProps) {
       <div className="bg-white flex flex-wrap gap-[60px]">
         {productData.map((product) => {
           return (
-            <div className=" " key={product.id}>
+            <div className="" key={product.id}>
               <Link key={product.id} to={`/product/${product.id}`}>
-                <div className="w-[300px] flex flex-col gap-[16px] border-solid outline-[green]  ">
+                <div className="w-[300px] h-fit flex flex-col gap-[16px] border-solid   duration-500">
                   <img
                     src={product?.image}
                     alt="product-image"
-                    className="w-full"
+                    className="bg-contain w-[200px] hover:w-[250px] duration-500"
                   />
                   <div className="flex flex-col gap-[12px]">
                     <span className="text-orange-400 text-[2rem] font-bold">
